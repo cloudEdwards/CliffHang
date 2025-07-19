@@ -62,10 +62,22 @@ public class Player : NetworkBehaviour
             if (IsClimbing)
             {
                 HandleClimbing(input);
-                return;
+                // return;
             }
 
-            Vector3 worldDirection = kcc.TransformRotation * new Vector3(input.Direction.x, 0f, input.Direction.y);
+            Vector3 worldDirection;
+
+            if (IsClimbing)
+            {
+                // TODO: set a timer and run out of stamina, then can't move up
+                worldDirection = kcc.TransformRotation * new Vector3(input.Direction.x, input.Direction.y, 0f);
+            }
+            else
+            {
+                kcc.SetGravity(Physics.gravity.y * 2f);
+                worldDirection = kcc.TransformRotation * new Vector3(input.Direction.x, 0f, input.Direction.y);
+            }
+            
             float jump = 0f;
 
             if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump) && kcc.IsGrounded)
@@ -169,9 +181,6 @@ public class Player : NetworkBehaviour
     {
         IsClimbing = true;
         CreateClimbJoint(hit.point);
-
-        // kcc.SetGravity(0f);
-        // kcc.SetVelocity(Vector3.zero);
     }
 
     private void CreateClimbJoint(Vector3 anchor)
@@ -185,6 +194,7 @@ public class Player : NetworkBehaviour
         climbJoint = rb.gameObject.AddComponent<ConfigurableJoint>();
         climbJoint.autoConfigureConnectedAnchor = false;
         climbJoint.connectedAnchor = anchor;
+
 
         // Restrict all motion but allow movement within a limit
         climbJoint.xMotion = ConfigurableJointMotion.Limited;
