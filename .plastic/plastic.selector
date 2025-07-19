@@ -1,0 +1,4 @@
+repository "Cloud Repositories/Game Mechanics@DreamChameleon@cloud"
+  path "/"
+    br "/main"
+    co "/main"
