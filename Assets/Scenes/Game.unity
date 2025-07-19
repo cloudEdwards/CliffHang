@@ -329,7 +329,7 @@ MonoBehaviour:
     RawGuidValue: 82a799c8012aa7e4584e086ceb07652f
   characterPrefabs:
   - RawGuidValue: a47517f4f5fa344ab98f761c5d796eed
-  - RawGuidValue: db66aea1a5d9a4c74b959c78f10f20ff
+  - RawGuidValue: 366e13c7d40414d8d81a7c770fc1c0b3
 --- !u!114 &89545994
 MonoBehaviour:
   m_ObjectHideFlags: 0
