@@ -25,7 +25,7 @@ public class Player : NetworkBehaviour
     [Networked] private Vector3 ClimbTarget { get; set; }
 
 
-    private ConfigurableJoint climbJoint;
+    private SpringJoint climbJoint;
     [SerializeField] private float climbMaxDistance = 1.5f;
     [SerializeField] private float climbSpring = 1000f;
     [SerializeField] private float climbDamper = 50f;
@@ -191,18 +191,28 @@ public class Player : NetworkBehaviour
 
         Rigidbody rb = kcc.GetComponent<Rigidbody>();
 
-        climbJoint = rb.gameObject.AddComponent<ConfigurableJoint>();
+        climbJoint = rb.gameObject.AddComponent<SpringJoint>();
         climbJoint.autoConfigureConnectedAnchor = false;
         climbJoint.connectedAnchor = anchor;
 
+        // Create anchor point in world
+        GameObject wallAnchor = new GameObject("ClimbAnchor");
+        wallAnchor.transform.position = anchor;
+        Rigidbody anchorRb = wallAnchor.AddComponent<Rigidbody>();
+        anchorRb.isKinematic = true;
+
+        // Optional: parent to environment for cleanup
+        climbJoint.connectedBody = anchorRb;
+
+
 
         // Restrict all motion but allow movement within a limit
-        climbJoint.xMotion = ConfigurableJointMotion.Limited;
-        climbJoint.yMotion = ConfigurableJointMotion.Limited;
-        climbJoint.zMotion = ConfigurableJointMotion.Limited;
+        // climbJoint.xMotion = ConfigurableJointMotion.Limited;
+        // climbJoint.yMotion = ConfigurableJointMotion.Limited;
+        // climbJoint.zMotion = ConfigurableJointMotion.Limited;
 
-        SoftJointLimit limit = new SoftJointLimit { limit = climbMaxDistance };
-        climbJoint.linearLimit = limit;
+        // SoftJointLimit limit = new SoftJointLimit { limit = climbMaxDistance };
+        // climbJoint.linearLimit = limit;
 
         JointDrive drive = new JointDrive
         {
@@ -211,12 +221,12 @@ public class Player : NetworkBehaviour
             maximumForce = Mathf.Infinity
         };
 
-        climbJoint.xDrive = drive;
-        climbJoint.yDrive = drive;
-        climbJoint.zDrive = drive;
+        // climbJoint.xDrive = drive;
+        // climbJoint.yDrive = drive;
+        // climbJoint.zDrive = drive;
 
         climbJoint.anchor = Vector3.zero;
-        climbJoint.rotationDriveMode = RotationDriveMode.Slerp;
+        // climbJoint.rotationDriveMode = RotationDriveMode.Slerp;
     }
 
 
