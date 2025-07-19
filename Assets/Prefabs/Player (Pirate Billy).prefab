@@ -1233,6 +1233,9 @@ MonoBehaviour:
   maxPitch: 85
   lookSensitivity: 0.15
   jumpInpulse: {x: 0, y: 10, z: 0}
+  grappleCD: 2
+  grappleStrength: 12
+  <AbilityRange>k__BackingField: 25
 --- !u!114 &-8366723827919736966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,7 +1297,7 @@ MonoBehaviour:
   _settings:
     Shape: 1
     IsTrigger: 0
-    Radius: 0.35
+    Radius: 0.41
     Height: 1.8
     Extent: 0.035
     ColliderLayer: 6
