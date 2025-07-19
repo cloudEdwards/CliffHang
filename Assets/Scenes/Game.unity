@@ -328,7 +328,7 @@ MonoBehaviour:
   playerPrefab:
     RawGuidValue: 82a799c8012aa7e4584e086ceb07652f
   characterPrefabs:
-  - RawGuidValue: 82a799c8012aa7e4584e086ceb07652f
+  - RawGuidValue: a47517f4f5fa344ab98f761c5d796eed
   - RawGuidValue: db66aea1a5d9a4c74b959c78f10f20ff
 --- !u!114 &89545994
 MonoBehaviour:

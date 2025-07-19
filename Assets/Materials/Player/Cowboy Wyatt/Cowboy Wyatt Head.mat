@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pirate Billy Wide
+  m_Name: Cowboy Wyatt Head
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,9 +25,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 090828da8187d4da8b2123748e49e2c3, type: 3}
-        m_Scale: {x: 1, y: 0.96}
-        m_Offset: {x: -1, y: 0.03}
+        m_Texture: {fileID: 2800000, guid: f6c25c268399f49ecb62155808f2d6a6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: -0.6}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -49,9 +49,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 090828da8187d4da8b2123748e49e2c3, type: 3}
-        m_Scale: {x: 1, y: 0.96}
-        m_Offset: {x: -1, y: 0.03}
+        m_Texture: {fileID: 2800000, guid: f6c25c268399f49ecb62155808f2d6a6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: -0.6}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
