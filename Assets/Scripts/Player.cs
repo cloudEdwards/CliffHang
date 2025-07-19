@@ -25,6 +25,17 @@ public class Player : NetworkBehaviour
     [Networked] private Vector3 ClimbTarget { get; set; }
 
 
+    private ConfigurableJoint climbJoint;
+    [SerializeField] private float climbMaxDistance = 1.5f;
+    [SerializeField] private float climbSpring = 1000f;
+    [SerializeField] private float climbDamper = 50f;
+
+    [SerializeField] private float climbSpeed = 2f;
+    [SerializeField] private float climbRadius = 1.5f;
+
+
+
+
     public override void Spawned()
     {
         kcc.SetGravity(Physics.gravity.y * 2f);
@@ -86,15 +97,40 @@ public class Player : NetworkBehaviour
 
 
 
+    // private void HandleClimbing(NetInput input)
+    // {
+    //     if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump))
+    //     {
+    //         ExitClimb();
+    //         Debug.Log("exiting climbing");
+    //     }
+    // }
+    
     private void HandleClimbing(NetInput input)
     {
+        Vector3 climbInput = kcc.TransformRotation * new Vector3(input.Direction.x, input.Direction.y, input.Direction.y);
+
+        // Use vertical axis for climbing (W/S = up/down)
+        Vector3 climbDelta = new Vector3(0, input.Direction.y, 0) * climbSpeed * Runner.DeltaTime;
+
+        // Calculate target position
+        Vector3 targetPosition = kcc.Object.transform.position + climbDelta;
+
+        // Constrain within climb radius
+        // if (Vector3.Distance(targetPosition, ClimbTarget) <= climbRadius)
+        // {
+        //     kcc.SetPosition(targetPosition);
+        // }
+
+        // Jump to exit climb
         if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump))
         {
             ExitClimb();
-            Debug.Log("exiting climbing");
+            // kcc.AddJump(jumpInpulse);
         }
     }
-    
+
+
     private void TryEnterClimb(NetInput input)
     {
         if (!HasInputAuthority || IsClimbing == true)
@@ -113,9 +149,13 @@ public class Player : NetworkBehaviour
             Ray ray = new Ray(rayOrigin, rayDirection);
             if (Physics.Raycast(ray, out RaycastHit hit, grabDistance, climbableMask))
             {
-                ClimbTarget = hit.point + hit.normal * 0.3f;
-                Debug.Log("entering climbing");
-                EnterClimb();
+                if (hit.transform.CompareTag("Climbable"))
+                {
+                    ClimbTarget = hit.point + hit.normal * 0.3f;
+                    Debug.Log("entering climbing");
+                    Debug.Log($"entering climbing {hit.transform}");
+                    EnterClimb(hit);   
+                }
             }
             else
             {
@@ -125,16 +165,61 @@ public class Player : NetworkBehaviour
     }
 
 
-    private void EnterClimb()
+    private void EnterClimb(RaycastHit hit)
     {
         IsClimbing = true;
+        CreateClimbJoint(hit.point);
+
         // kcc.SetGravity(0f);
         // kcc.SetVelocity(Vector3.zero);
     }
 
+    private void CreateClimbJoint(Vector3 anchor)
+    {
+        // Remove any existing joint
+        if (climbJoint != null)
+            Destroy(climbJoint);
+
+        Rigidbody rb = kcc.GetComponent<Rigidbody>();
+
+        climbJoint = rb.gameObject.AddComponent<ConfigurableJoint>();
+        climbJoint.autoConfigureConnectedAnchor = false;
+        climbJoint.connectedAnchor = anchor;
+
+        // Restrict all motion but allow movement within a limit
+        climbJoint.xMotion = ConfigurableJointMotion.Limited;
+        climbJoint.yMotion = ConfigurableJointMotion.Limited;
+        climbJoint.zMotion = ConfigurableJointMotion.Limited;
+
+        SoftJointLimit limit = new SoftJointLimit { limit = climbMaxDistance };
+        climbJoint.linearLimit = limit;
+
+        JointDrive drive = new JointDrive
+        {
+            positionSpring = climbSpring,
+            positionDamper = climbDamper,
+            maximumForce = Mathf.Infinity
+        };
+
+        climbJoint.xDrive = drive;
+        climbJoint.yDrive = drive;
+        climbJoint.zDrive = drive;
+
+        climbJoint.anchor = Vector3.zero;
+        climbJoint.rotationDriveMode = RotationDriveMode.Slerp;
+    }
+
+
     private void ExitClimb()
     {
         IsClimbing = false;
+
+        if (climbJoint != null)
+        {
+            Destroy(climbJoint);
+            climbJoint = null;
+        }
+        
         kcc.SetGravity(Physics.gravity.y * 2f);
     }
 
