@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Fusion;
 using UnityEngine;
 
-public enum InputButton {
+public enum InputButton
+{
     Jump,
+    Fire
 }
 
 public struct NetInput : INetworkInput

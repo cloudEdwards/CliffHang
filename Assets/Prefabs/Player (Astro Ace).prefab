@@ -852,6 +852,10 @@ MonoBehaviour:
   lookSensitivity: 0.15
   speed: 5
   jumpInpulse: 10
+  grabDistance: 2.5
+  climbableMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &-8366723827919736966
 MonoBehaviour:
   m_ObjectHideFlags: 0

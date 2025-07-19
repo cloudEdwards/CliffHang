@@ -47,24 +47,30 @@ public class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCa
             accumulatedInput.LookDelta += lookRotationDelta;
         }
 
-        if (keyboard != null) {
+        if (keyboard != null)
+        {
             Vector2 moveDirection = Vector2.zero;
 
-            if (keyboard.wKey.isPressed) {
+            if (keyboard.wKey.isPressed)
+            {
                 moveDirection += Vector2.up;
             }
-            if (keyboard.sKey.isPressed) {
+            if (keyboard.sKey.isPressed)
+            {
                 moveDirection += Vector2.down;
             }
-            if (keyboard.aKey.isPressed) {
+            if (keyboard.aKey.isPressed)
+            {
                 moveDirection += Vector2.left;
             }
-            if (keyboard.dKey.isPressed) {
+            if (keyboard.dKey.isPressed)
+            {
                 moveDirection += Vector2.right;
             }
 
             accumulatedInput.Direction += moveDirection;
             buttons.Set(InputButton.Jump, keyboard.spaceKey.isPressed);
+            buttons.Set(InputButton.Fire, mouse.leftButton.isPressed);
         }
 
         accumulatedInput.Buttons = new NetworkButtons(accumulatedInput.Buttons.Bits | buttons.Bits);

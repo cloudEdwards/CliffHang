@@ -1233,10 +1233,11 @@ MonoBehaviour:
   lookSensitivity: 0.15
   speed: 5
   jumpInpulse: 10
+  playerCamera: {fileID: 0}
   grabDistance: 2.5
   climbableMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &-8366723827919736966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1249,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3046363960
+  SortKey: 2678223237
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
