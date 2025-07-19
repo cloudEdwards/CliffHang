@@ -1,45 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq.Expressions;
 using Fusion;
-using Fusion.Addons.SimpleKCC;
-using Unity.VisualScripting;
+using Fusion.Addons.KCC;
 using UnityEngine;
 
 public class Player : NetworkBehaviour
 {
-    [SerializeField] private SimpleKCC kcc;
+    [SerializeField] private KCC kcc;
     [SerializeField] private Transform camTarget;
     [SerializeField] private MeshRenderer[] modelParts;
+    [SerializeField] private float maxPitch = 85f;
     [SerializeField] private float lookSensitivity = 0.15f;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpInpulse = 10f;
+    [SerializeField] private Vector3 jumpInpulse = new(0f, 10f, 0f);
+
+    // grapple
+    [SerializeField] private float grappleCD = .1f;
+    [SerializeField] private float grappleStrength = 12f;
+    [field: SerializeField] public float AbilityRange { get; private set; } = 25f;
+
+    public float GrappleCDFactor => (GrappleCD.RemainingTime(Runner) ?? 0f) / grappleCD;
+
+    [Networked] private TickTimer GrappleCD { get; set; }
 
     [Networked] private NetworkButtons PreviousButtons { get; set; }
 
 
-    // [SerializeField] private Camera playerCamera;
-    [SerializeField] private float grabDistance = 2.5f;
-    [SerializeField] private LayerMask climbableMask;
-
-    [Networked] private bool IsClimbing { get; set; }
-    [Networked] private Vector3 ClimbTarget { get; set; }
-
-
-    private SpringJoint climbJoint;
-    [SerializeField] private float climbMaxDistance = 1.5f;
-    [SerializeField] private float climbSpring = 1000f;
-    [SerializeField] private float climbDamper = 50f;
-
-    [SerializeField] private float climbSpeed = 2f;
-    [SerializeField] private float climbRadius = 1.5f;
-
-
-
-
     public override void Spawned()
     {
-        kcc.SetGravity(Physics.gravity.y * 2f);
-
         if (HasInputAuthority)
         {
             // make player model seethrough for player camera
@@ -55,45 +41,35 @@ public class Player : NetworkBehaviour
     {
         if (GetInput(out NetInput input))
         {
-            kcc.AddLookRotation(input.LookDelta * lookSensitivity);
+            CheckJump(input);
+
+            kcc.AddLookRotation(input.LookDelta * lookSensitivity, -maxPitch, maxPitch);
             UpdateCamTarget();
 
-            // Call climbing state checks here
-            if (IsClimbing)
+            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Fire))
             {
-                HandleClimbing(input);
-                // return;
+                TryGrapple(camTarget.forward);
             }
 
-            Vector3 worldDirection;
-
-            if (IsClimbing)
-            {
-                // TODO: set a timer and run out of stamina, then can't move up
-                worldDirection = kcc.TransformRotation * new Vector3(input.Direction.x, input.Direction.y, 0f);
-            }
-            else
-            {
-                kcc.SetGravity(Physics.gravity.y * 2f);
-                worldDirection = kcc.TransformRotation * new Vector3(input.Direction.x, 0f, input.Direction.y);
-            }
-            
-            float jump = 0f;
-
-            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump) && kcc.IsGrounded)
-            {
-                jump = jumpInpulse;
-            }
-
-            kcc.Move(worldDirection.normalized * speed, jump);
-
-
-            // Add climbing attempt at the end
-            TryEnterClimb(input);
-
-
+            SetInputDirection(input);
             PreviousButtons = input.Buttons;
+
+            // todo: baseLookRotation = kcc.GetLookRotation();
         }
+    }
+
+    public void CheckJump(NetInput input)
+    {
+        if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump) && kcc.FixedData.IsGrounded)
+        {
+            kcc.Jump(jumpInpulse);
+        }
+    }
+
+    public void SetInputDirection(NetInput input)
+    {
+        Vector3 worldDirection = kcc.FixedData.TransformRotation * input.Direction.X0Y();
+        kcc.SetInputDirection(worldDirection);
     }
 
     public override void Render()
@@ -106,142 +82,29 @@ public class Player : NetworkBehaviour
         camTarget.localRotation = Quaternion.Euler(kcc.GetLookRotation().x, 0f, 0f);
     }
 
-
-
-
-    // private void HandleClimbing(NetInput input)
-    // {
-    //     if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump))
-    //     {
-    //         ExitClimb();
-    //         Debug.Log("exiting climbing");
-    //     }
-    // }
-    
-    private void HandleClimbing(NetInput input)
+    public void ResetCooldowns()
     {
-        Vector3 climbInput = kcc.TransformRotation * new Vector3(input.Direction.x, input.Direction.y, input.Direction.y);
-
-        // Use vertical axis for climbing (W/S = up/down)
-        Vector3 climbDelta = new Vector3(0, input.Direction.y, 0) * climbSpeed * Runner.DeltaTime;
-
-        // Calculate target position
-        Vector3 targetPosition = kcc.Object.transform.position + climbDelta;
-
-        // Constrain within climb radius
-        // if (Vector3.Distance(targetPosition, ClimbTarget) <= climbRadius)
-        // {
-        //     kcc.SetPosition(targetPosition);
-        // }
-
-        // Jump to exit climb
-        if (input.Buttons.WasPressed(PreviousButtons, InputButton.Jump))
-        {
-            ExitClimb();
-            // kcc.AddJump(jumpInpulse);
-        }
+        GrappleCD = TickTimer.None;
     }
 
-
-    private void TryEnterClimb(NetInput input)
+    public void TryGrapple(Vector3 lookDirection)
     {
-        if (!HasInputAuthority || IsClimbing == true)
-            return;
-
-        if (input.Buttons.WasPressed(PreviousButtons, InputButton.Fire))
+        // if (GrappleCD.ExpiredOrNotRunning(Runner) && Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
+        if (Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
         {
-            Debug.Log("click on climbing");
-
-            Vector3 rayOrigin = Camera.main.transform.position;
-            Vector3 rayDirection = Camera.main.transform.forward;
-
-            // Draw the ray line in Game view (visible if Gizmos are on)
-            Debug.DrawRay(rayOrigin, rayDirection * grabDistance, Color.green, 1f);
-
-            Ray ray = new Ray(rayOrigin, rayDirection);
-            if (Physics.Raycast(ray, out RaycastHit hit, grabDistance, climbableMask))
+            // if (hitInfo.collider.TryGetComponent(out BlockExpression _))
+            if (hitInfo.transform.CompareTag("Climbable"))
             {
-                if (hit.transform.CompareTag("Climbable"))
+                GrappleCD = TickTimer.CreateFromSeconds(Runner, grappleCD);
+                Vector3 grappleVector = Vector3.Normalize(hitInfo.point - transform.position);
+                // apply upwards force if looking up
+                if (grappleVector.y > 0f)
                 {
-                    ClimbTarget = hit.point + hit.normal * 0.3f;
-                    Debug.Log("entering climbing");
-                    Debug.Log($"entering climbing {hit.transform}");
-                    EnterClimb(hit);   
+                    grappleVector = Vector3.Normalize(grappleVector + Vector3.up);
                 }
-            }
-            else
-            {
-                Debug.Log("no hit on climbable");
+                kcc.Jump(grappleVector * grappleStrength);
             }
         }
     }
-
-
-    private void EnterClimb(RaycastHit hit)
-    {
-        IsClimbing = true;
-        CreateClimbJoint(hit.point);
-    }
-
-    private void CreateClimbJoint(Vector3 anchor)
-    {
-        // Remove any existing joint
-        if (climbJoint != null)
-            Destroy(climbJoint);
-
-        Rigidbody rb = kcc.GetComponent<Rigidbody>();
-
-        climbJoint = rb.gameObject.AddComponent<SpringJoint>();
-        climbJoint.autoConfigureConnectedAnchor = false;
-        climbJoint.connectedAnchor = anchor;
-
-        // Create anchor point in world
-        GameObject wallAnchor = new GameObject("ClimbAnchor");
-        wallAnchor.transform.position = anchor;
-        Rigidbody anchorRb = wallAnchor.AddComponent<Rigidbody>();
-        anchorRb.isKinematic = true;
-
-        // Optional: parent to environment for cleanup
-        climbJoint.connectedBody = anchorRb;
-
-
-
-        // Restrict all motion but allow movement within a limit
-        // climbJoint.xMotion = ConfigurableJointMotion.Limited;
-        // climbJoint.yMotion = ConfigurableJointMotion.Limited;
-        // climbJoint.zMotion = ConfigurableJointMotion.Limited;
-
-        // SoftJointLimit limit = new SoftJointLimit { limit = climbMaxDistance };
-        // climbJoint.linearLimit = limit;
-
-        JointDrive drive = new JointDrive
-        {
-            positionSpring = climbSpring,
-            positionDamper = climbDamper,
-            maximumForce = Mathf.Infinity
-        };
-
-        // climbJoint.xDrive = drive;
-        // climbJoint.yDrive = drive;
-        // climbJoint.zDrive = drive;
-
-        climbJoint.anchor = Vector3.zero;
-        // climbJoint.rotationDriveMode = RotationDriveMode.Slerp;
-    }
-
-
-    private void ExitClimb()
-    {
-        IsClimbing = false;
-
-        if (climbJoint != null)
-        {
-            Destroy(climbJoint);
-            climbJoint = null;
-        }
-        
-        kcc.SetGravity(Physics.gravity.y * 2f);
-    }
-
 
 }

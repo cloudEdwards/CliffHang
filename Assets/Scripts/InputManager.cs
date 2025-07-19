@@ -41,10 +41,14 @@ public class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCa
         NetworkButtons buttons = default;
 
         Mouse mouse = Mouse.current;
-        if (mouse != null) {
+        if (mouse != null)
+        {
             Vector2 mouseDelta = mouse.delta.ReadValue();
             Vector2 lookRotationDelta = new Vector2(-mouseDelta.y, mouseDelta.x);
             accumulatedInput.LookDelta += lookRotationDelta;
+
+            buttons.Set(InputButton.Fire, mouse.leftButton.isPressed);
+            buttons.Set(InputButton.Grapple, mouse.rightButton.isPressed);
         }
 
         if (keyboard != null)
@@ -70,7 +74,6 @@ public class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCa
 
             accumulatedInput.Direction += moveDirection;
             buttons.Set(InputButton.Jump, keyboard.spaceKey.isPressed);
-            buttons.Set(InputButton.Fire, mouse.leftButton.isPressed);
         }
 
         accumulatedInput.Buttons = new NetworkButtons(accumulatedInput.Buttons.Bits | buttons.Bits);

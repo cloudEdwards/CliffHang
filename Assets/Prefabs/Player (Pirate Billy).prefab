@@ -1184,7 +1184,7 @@ GameObject:
   - component: {fileID: -2479328056124875636}
   - component: {fileID: -8366723827919736966}
   - component: {fileID: 4804326544657693821}
-  - component: {fileID: 587772972407200924}
+  - component: {fileID: 2701275453094062169}
   m_Layer: 0
   m_Name: Player (Pirate Billy)
   m_TagString: Untagged
@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2130df30e4cc4192bd99e76cbb90b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kcc: {fileID: 587772972407200924}
+  kcc: {fileID: 2701275453094062169}
   camTarget: {fileID: 5917887644620235224}
   modelParts:
   - {fileID: 8516833619549204640}
@@ -1230,13 +1230,9 @@ MonoBehaviour:
   - {fileID: 5271234934346940701}
   - {fileID: 2770310291166631756}
   - {fileID: 8793461067276059089}
+  maxPitch: 85
   lookSensitivity: 0.15
-  speed: 5
-  jumpInpulse: 10
-  grabDistance: 2.5
-  climbableMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  jumpInpulse: {x: 0, y: 10, z: 0}
 --- !u!114 &-8366723827919736966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1251,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: -2479328056124875636}
-  - {fileID: 587772972407200924}
+  - {fileID: 2701275453094062169}
 --- !u!54 &4804326544657693821
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1283,7 +1279,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &587772972407200924
+--- !u!114 &2701275453094062169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1292,7 +1288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9040168462585498880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1869825851, guid: 977dbcf975465374990f471e1497f563, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f7684f04e649e84fb2ee1bc9fbee42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
@@ -1305,19 +1301,25 @@ MonoBehaviour:
     CollisionLayerMask:
       serializedVersion: 2
       m_Bits: 65
+    Features: -1
+    InputAuthorityBehavior: 0
+    StateAuthorityBehavior: 0
     ProxyInterpolationMode: 0
+    AllowClientTeleports: 0
+    Processors:
+    - {fileID: 2757625830553234723, guid: 1a0918049968747219a90358a924c1fb, type: 3}
+    - {fileID: 561824206424634091, guid: 68c4081a63f1dfd469da9c95bea22158, type: 3}
+    - {fileID: 8306782452827789390, guid: 6d976f9777012db4aa55e7e6b1991afe, type: 3}
     TeleportThreshold: 1
+    MaxPenetrationSteps: 8
+    CCDRadiusMultiplier: 0.75
     AntiJitterDistance: {x: 0.025, y: 0.01}
+    PredictionCorrectionSpeed: 30
+    NetworkedInteractions: 8
     CompressNetworkPosition: 0
+    ForceSingleOverlapQuery: 0
     ForcePredictedLookRotation: 0
-    StepHeight: 0.5
-    StepDepth: 0.2
-    StepSpeed: 1
-    StepMinPushBack: 0.5
-    StepGroundCheckRadiusScale: 0.5
-    StepRequireGroundTarget: 0
-    SnapDistance: 0.25
-    SnapSpeed: 4
+    SuppressConvexMeshColliders: 0
 --- !u!1001 &4218172695574425155
 PrefabInstance:
   m_ObjectHideFlags: 0
