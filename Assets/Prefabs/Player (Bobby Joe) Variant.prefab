@@ -99,9 +99,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5769019848657872662}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &6535452006736123318 stripped
+--- !u!23 &8694059112356913565 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 773838507640681120, guid: 57e0bddb3c84146db8c4a3cf38eeb73b,
+  m_CorrespondingSourceObject: {fileID: 2929640277652407947, guid: 57e0bddb3c84146db8c4a3cf38eeb73b,
     type: 3}
   m_PrefabInstance: {fileID: 5769019848657872662}
   m_PrefabAsset: {fileID: 0}
@@ -177,7 +177,7 @@ PrefabInstance:
         type: 3}
       propertyPath: modelParts.Array.data[0]
       value: 
-      objectReference: {fileID: 6535452006736123318}
+      objectReference: {fileID: 8694059112356913565}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7742253479005530875, guid: a47517f4f5fa344ab98f761c5d796eed, type: 3}
