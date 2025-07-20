@@ -105,6 +105,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7553238816612254548, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: -6522695966643703301, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_Name
@@ -120,16 +130,61 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.08774
       objectReference: {fileID: 0}
+    - target: {fileID: -861079699921549436, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_Name
       value: pope (rope)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790183945725220954, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480909740878747892, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852929629529721487, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819001077394492298, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
       objectReference: {fileID: 0}
     - target: {fileID: 5074512353664290214, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2a83e3c0ed3264a56b55675cbd9c2be4, type: 2}
+    - target: {fileID: 6905609870639353253, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649307984373867853, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953085446890567447, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178353486837351355, guid: 65de23e854fb0460e80aca84d188456b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Climbable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -312,7 +367,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.3798351e-10, y: 0.0046299594, z: -4.6566134e-10}
+  m_ConnectedAnchor: {x: 1.890379e-10, y: 0.00462997, z: -4.6566134e-10}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -358,8 +413,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1087253921294708164 stripped
@@ -407,7 +462,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000001650156, y: 0.0050000073, z: -0.0000000037252894}
+  m_ConnectedAnchor: {x: -0.000000029333368, y: 0.004999999, z: -0.000000029802326}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -453,8 +508,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &2283759883393496707 stripped
@@ -508,7 +563,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000000025442257, y: 0.0050000055, z: -0.0000000037252907}
+  m_ConnectedAnchor: {x: -0.0000000051057505, y: 0.005000001, z: -0.000000014901163}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -554,8 +609,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4203763619158804892 stripped
@@ -603,7 +658,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000000017991676, y: 0.0050000027, z: -0.0000000018626454}
+  m_ConnectedAnchor: {x: -0.0000000033915615, y: 0.005000001, z: -0.0000000037252907}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -649,8 +704,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4413959113094832275 stripped
@@ -698,7 +753,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.3600645e-10, y: 0.004999998, z: -9.313225e-10}
+  m_ConnectedAnchor: {x: 0.0000000056202505, y: 0.0050000045, z: -0.0000000018626451}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -744,8 +799,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5183244503240826061 stripped
@@ -793,7 +848,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 217.37909, y: 73.73461, z: 7.19148}
+  m_ConnectedAnchor: {x: -25.49, y: 29.969992, z: 30.199999}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -839,8 +894,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6547025548489218786 stripped
@@ -888,7 +943,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.869951e-10, y: 0.005000004, z: -9.313227e-10}
+  m_ConnectedAnchor: {x: 4.687175e-10, y: 0.005000006, z: -0.0000000018626454}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -934,8 +989,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7447613620237701843 stripped
@@ -983,7 +1038,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000001650156, y: 0.0050000036, z: -0.0000000018626449}
+  m_ConnectedAnchor: {x: -0.000000005056592, y: 0.004999997, z: -0.0000000074505815}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -1029,8 +1084,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7797954639360022252 stripped
@@ -1078,7 +1133,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000000023349696, y: 0.0050000013, z: -0.0000000037252892}
+  m_ConnectedAnchor: {x: -0.000000025862601, y: 0.0049999957, z: -0.000000029802319}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -1124,8 +1179,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8222728406154900517 stripped
@@ -1173,7 +1228,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000000023952142, y: 0.005000005, z: -0.0000000037252896}
+  m_ConnectedAnchor: {x: -0.00000001279329, y: 0.005, z: 3.0041624e-15}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -1219,8 +1274,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8531009484405089919 stripped
@@ -1268,7 +1323,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000000015011443, y: 0.005000006, z: -0.0000000018626448}
+  m_ConnectedAnchor: {x: 6.970229e-10, y: 0.005000001, z: -0.00000000745058}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:
@@ -1314,7 +1369,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0005
-  m_Height: 0.003
+  m_Radius: 0.002
+  m_Height: 0.005
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
