@@ -1231,7 +1231,7 @@ MonoBehaviour:
   - {fileID: 2770310291166631756}
   - {fileID: 8793461067276059089}
   maxPitch: 85
-  lookSensitivity: 0.15
+  lookSensitivity: 0.3
   jumpInpulse: {x: 0, y: 10, z: 0}
   grappleCD: 2
   grappleStrength: 12
