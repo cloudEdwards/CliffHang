@@ -365,6 +365,8 @@ MonoBehaviour:
   - RawGuidValue: 416d76089a3d74177a24f5c7307faffd
   - RawGuidValue: d4b967d6c16ee4686a1f0f6d2584ab89
   - RawGuidValue: 2836814adf3d045bda10cdef287cfa02
+  - RawGuidValue: ce38ed7506ab14f8eaddc27fcb5c2980
+  - RawGuidValue: ba3d8a8bab5c34f44a9f43d72184997c
 --- !u!114 &89545994
 MonoBehaviour:
   m_ObjectHideFlags: 0
