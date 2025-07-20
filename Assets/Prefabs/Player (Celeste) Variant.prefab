@@ -93,15 +93,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0258cda6aac054d29b0b4b7abacf7f27, type: 3}
+--- !u!23 &752501052925972085 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5901893356585517859, guid: 0258cda6aac054d29b0b4b7abacf7f27,
+    type: 3}
+  m_PrefabInstance: {fileID: 6599698718239624534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &1758849092062973315 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4899486392329470165, guid: 0258cda6aac054d29b0b4b7abacf7f27,
     type: 3}
   m_PrefabInstance: {fileID: 6599698718239624534}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &2864951870889430310 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -264430861247414160, guid: 0258cda6aac054d29b0b4b7abacf7f27,
+    type: 3}
+  m_PrefabInstance: {fileID: 6599698718239624534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6637301416874175165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0258cda6aac054d29b0b4b7abacf7f27,
+    type: 3}
+  m_PrefabInstance: {fileID: 6599698718239624534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8096295567895364663 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6067185528594298527, guid: 0258cda6aac054d29b0b4b7abacf7f27,
     type: 3}
   m_PrefabInstance: {fileID: 6599698718239624534}
   m_PrefabAsset: {fileID: 0}
@@ -175,7 +193,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
         type: 3}
+      propertyPath: modelParts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
+        type: 3}
       propertyPath: modelParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 8096295567895364663}
+    - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
+        type: 3}
+      propertyPath: modelParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 8096295567895364663}
+    - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
+        type: 3}
+      propertyPath: modelParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 752501052925972085}
+    - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
+        type: 3}
+      propertyPath: modelParts.Array.data[3]
+      value: 
+      objectReference: {fileID: 2864951870889430310}
+    - target: {fileID: 8424658854031572147, guid: a47517f4f5fa344ab98f761c5d796eed,
+        type: 3}
+      propertyPath: modelParts.Array.data[4]
       value: 
       objectReference: {fileID: 1758849092062973315}
     m_RemovedComponents: []

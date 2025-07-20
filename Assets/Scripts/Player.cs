@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Fusion;
 using Fusion.Addons.KCC;
 using UnityEngine;
@@ -25,6 +24,7 @@ public class Player : NetworkBehaviour
 
     private Rigidbody rb = new();
 
+    private bool isGrabbing = false;
 
     public override void Spawned()
     {
@@ -41,12 +41,6 @@ public class Player : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (rb != null)
-        {
-            Debug.Log("log" + rb);
-            Debug.Log("log" + rb.position);
-        }
-        
         if (GetInput(out NetInput input))
         {
             CheckJump(input);
@@ -54,10 +48,10 @@ public class Player : NetworkBehaviour
             kcc.AddLookRotation(input.LookDelta * lookSensitivity, -maxPitch, maxPitch);
             UpdateCamTarget();
 
-            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Grab))
-            {
-                TryGrab(camTarget.forward);
-            }
+            // if (input.Buttons.WasPressed(PreviousButtons, InputButton.Grab))
+            // {
+            //     TryGrab(camTarget.forward);
+            // }
 
             if (input.Buttons.WasPressed(PreviousButtons, InputButton.Climb))
             {
@@ -69,6 +63,12 @@ public class Player : NetworkBehaviour
 
             // todo: baseLookRotation = kcc.GetLookRotation();
         }
+
+        // if (rb != null && isGrabbing)
+        // {
+        //     SetGrabDirection(rb.position - transform.position);
+        //     return;
+        // }
     }
 
     public void CheckJump(NetInput input)
@@ -84,6 +84,12 @@ public class Player : NetworkBehaviour
         Vector3 worldDirection = kcc.FixedData.TransformRotation * input.Direction.X0Y();
         kcc.SetInputDirection(worldDirection);
     }
+    
+    // public void SetGrabDirection(Vector3 direction)
+    // {
+    //     Vector3 worldDirection = kcc.FixedData.TransformRotation * direction;
+    //     kcc.SetInputDirection(worldDirection);
+    // }
 
     public override void Render()
     {
@@ -119,35 +125,33 @@ public class Player : NetworkBehaviour
             }
         }
     }
-        public void TryGrab(Vector3 lookDirection)
-        {
-            // if (GrappleCD.ExpiredOrNotRunning(Runner) && Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
-            if (Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
-            {
-                // if (hitInfo.collider.TryGetComponent(out BlockExpression _))
-                if (hitInfo.transform.CompareTag("Vine"))
-                {
-                // get the collider (segment of the rope)
-                // get position of the rigidBody
-                // move player to that position while grabbing
-                // if we click and we're already grbbing, we let go (grabbing is false)
 
-                    rb = hitInfo.collider.gameObject.GetComponent<Rigidbody>();
-                    Debug.Log("log" + rb);
-                    Debug.Log("log" + rb.position);
+    // public void TryGrab(Vector3 lookDirection)
+    // {
+    //     if (isGrabbing)
+    //     {
+    //         isGrabbing = false;
+    //         return;
+    //     }
 
+    //     // if (GrappleCD.ExpiredOrNotRunning(Runner) && Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
+    //     if (Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
+    //     {
 
+    //         // if (hitInfo.collider.TryGetComponent(out BlockExpression _))
+    //         if (hitInfo.transform.CompareTag("Vine"))
+    //         {
+    //             isGrabbing = true;
 
-                    Vector3 grappleVector = Vector3.Normalize(hitInfo.point - transform.position);
-                    // apply upwards force if looking up
-                    if (grappleVector.y > 0f)
-                    {
-                        grappleVector = Vector3.Normalize(grappleVector + Vector3.up);
-                    }
-                    kcc.Jump(grappleVector * grappleStrength);
-                }
-            }
-        }
+    //             // get the collider (segment of the rope)
+    //             // get position of the rigidBody
+    //             // move player to that position while grabbing
+    //             // if we click and we're already grbbing, we let go (grabbing is false)
 
+    //             rb = hitInfo.collider.gameObject.GetComponent<Rigidbody>();
+    //         }
+    //     }
+
+    // }
 
 }
