@@ -23,6 +23,8 @@ public class Player : NetworkBehaviour
 
     [Networked] private NetworkButtons PreviousButtons { get; set; }
 
+    private Rigidbody rb = new();
+
 
     public override void Spawned()
     {
@@ -39,6 +41,12 @@ public class Player : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        if (rb != null)
+        {
+            Debug.Log("log" + rb);
+            Debug.Log("log" + rb.position);
+        }
+        
         if (GetInput(out NetInput input))
         {
             CheckJump(input);
@@ -46,9 +54,14 @@ public class Player : NetworkBehaviour
             kcc.AddLookRotation(input.LookDelta * lookSensitivity, -maxPitch, maxPitch);
             UpdateCamTarget();
 
-            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Fire))
+            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Grab))
             {
-                TryGrapple(camTarget.forward);
+                TryGrab(camTarget.forward);
+            }
+
+            if (input.Buttons.WasPressed(PreviousButtons, InputButton.Climb))
+            {
+                TryClimb(camTarget.forward);
             }
 
             SetInputDirection(input);
@@ -87,13 +100,13 @@ public class Player : NetworkBehaviour
         GrappleCD = TickTimer.None;
     }
 
-    public void TryGrapple(Vector3 lookDirection)
+    public void TryClimb(Vector3 lookDirection)
     {
         // if (GrappleCD.ExpiredOrNotRunning(Runner) && Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
         if (Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
         {
             // if (hitInfo.collider.TryGetComponent(out BlockExpression _))
-            if (hitInfo.transform.CompareTag("Climbable"))
+            if (hitInfo.transform.CompareTag("Climbable") || (hitInfo.transform.CompareTag("Vine")))
             {
                 GrappleCD = TickTimer.CreateFromSeconds(Runner, grappleCD);
                 Vector3 grappleVector = Vector3.Normalize(hitInfo.point - transform.position);
@@ -106,5 +119,35 @@ public class Player : NetworkBehaviour
             }
         }
     }
+        public void TryGrab(Vector3 lookDirection)
+        {
+            // if (GrappleCD.ExpiredOrNotRunning(Runner) && Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
+            if (Physics.Raycast(camTarget.position, lookDirection, out RaycastHit hitInfo, AbilityRange))
+            {
+                // if (hitInfo.collider.TryGetComponent(out BlockExpression _))
+                if (hitInfo.transform.CompareTag("Vine"))
+                {
+                // get the collider (segment of the rope)
+                // get position of the rigidBody
+                // move player to that position while grabbing
+                // if we click and we're already grbbing, we let go (grabbing is false)
+
+                    rb = hitInfo.collider.gameObject.GetComponent<Rigidbody>();
+                    Debug.Log("log" + rb);
+                    Debug.Log("log" + rb.position);
+
+
+
+                    Vector3 grappleVector = Vector3.Normalize(hitInfo.point - transform.position);
+                    // apply upwards force if looking up
+                    if (grappleVector.y > 0f)
+                    {
+                        grappleVector = Vector3.Normalize(grappleVector + Vector3.up);
+                    }
+                    kcc.Jump(grappleVector * grappleStrength);
+                }
+            }
+        }
+
 
 }

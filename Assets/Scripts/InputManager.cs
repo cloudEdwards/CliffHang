@@ -47,8 +47,8 @@ public class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCa
             Vector2 lookRotationDelta = new Vector2(-mouseDelta.y, mouseDelta.x);
             accumulatedInput.LookDelta += lookRotationDelta;
 
-            buttons.Set(InputButton.Fire, mouse.leftButton.isPressed);
-            buttons.Set(InputButton.Grapple, mouse.rightButton.isPressed);
+            buttons.Set(InputButton.Climb, mouse.leftButton.isPressed);
+            buttons.Set(InputButton.Grab, mouse.rightButton.isPressed);
         }
 
         if (keyboard != null)

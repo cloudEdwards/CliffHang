@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5335880552041414626}
   m_Layer: 0
   m_Name: Viene Rope
-  m_TagString: Climbable
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,12 +108,12 @@ PrefabInstance:
     - target: {fileID: -7553238816612254548, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: -6522695966643703301, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: -861079699921549436, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
@@ -143,22 +143,22 @@ PrefabInstance:
     - target: {fileID: 1790183945725220954, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 2480909740878747892, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 3852929629529721487, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 4819001077394492298, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 5074512353664290214, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
@@ -168,22 +168,22 @@ PrefabInstance:
     - target: {fileID: 6905609870639353253, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 7649307984373867853, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 7953085446890567447, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     - target: {fileID: 9178353486837351355, guid: 65de23e854fb0460e80aca84d188456b,
         type: 3}
       propertyPath: m_TagString
-      value: Climbable
+      value: Vine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
